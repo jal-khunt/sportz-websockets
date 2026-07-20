@@ -53,10 +53,14 @@ matchRouter.post('/', async (req, res) => {
             status : getMatchStatus(startTime, endTime),
         }).returning();
 
+        if(res.app.locals.broadcastMatchCreated){
+            res.app.locals.broadcastMatchCreated(event)
+        }
+
         res.status(201).json({data: event});
     }
     catch(e){
-        // 3. Use e.message so you can actually read the error if it fails again
-        res.status(500).json({ error: 'Failed to create match' });
+        console.error("DATABASE ERROR: ", e); // <--- Add this line to see the real error
+        res.status(500).json({error:'Failed to create match', details : e.message });
     }
 })

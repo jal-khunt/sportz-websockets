@@ -61,6 +61,6 @@ matchRouter.post('/', async (req, res) => {
     }
     catch(e){
         console.error("DATABASE ERROR: ", e); // <--- Add this line to see the real error
-        res.status(500).json({error:'Failed to create match', details : e.message });
+        res.status(500).json({ error: 'Failed to create match' });
     }
 })

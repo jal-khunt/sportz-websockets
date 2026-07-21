@@ -9,7 +9,7 @@ if(!arcjetKey) throw new Error('ARCJET_KEY envirenment variable is missing');
 export const httparcjet = arcjetKey ?
     arcjet({
         key : arcjetKey,
-        rule : [
+        rules : [
             shield({mode : arcjetMode}),
             detectBot({mode:arcjetMode,allow:['CATEGORY:SEARCH_ENGINE', "CATEGORY:PREVIEW"]}),
             slidingWindow({mode : arcjetMode, interval:'10s', max: 50})
@@ -19,7 +19,7 @@ export const httparcjet = arcjetKey ?
 export const wsarcjet = arcjetKey ?
     arcjet({
         key : arcjetKey,
-        rule : [
+        rules : [
             shield({mode : arcjetMode}),
             detectBot({mode:arcjetMode,allow:['CATEGORY:SEARCH_ENGINE', "CATEGORY:PREVIEW"]}),
             slidingWindow({mode : arcjetMode, interval:'2s', max: 5})

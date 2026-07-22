@@ -63,11 +63,18 @@ commentaryRouter.post('/', async (req, res) => {
             ...rest
         }).returning();
 
-        if(res.app.locals.broadcastCommentary) {
-            res.app.locals.broadcastCommentary(result.matchId, result);
+        // if(res.app.locals.broadcastCommentary) {
+        //     res.app.locals.broadcastCommentary(result.matchId, result);
+        // }
+        try {
+            if (typeof res.app.locals.broadcastCommentary === 'function') {
+                res.app.locals.broadcastCommentary(result.matchId, result);
+            }
+        } catch (broadcastError) {
+            console.error('Failed to broadcast commentary:', broadcastError);
         }
 
-        res.status(201).json({ data: result });
+        return res.status(201).json({ data: result });
     } catch (error) {
         console.error('Failed to create commentary:', error);
         res.status(500).json({ error: 'Failed to create commentary.' });
